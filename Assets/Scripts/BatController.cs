@@ -48,7 +48,7 @@ public class BatController : MonoBehaviour
     void Update()
     {
 
-        if (transform.position.y > 30)
+        if (transform.position.y >= 30.0f)
         {
             currentSpeedV *= -1;
         }
