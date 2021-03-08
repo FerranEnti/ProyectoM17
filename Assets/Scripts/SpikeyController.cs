@@ -57,28 +57,25 @@ public class SpikeyController : MonoBehaviour
             SpikeyDirection = Direction.LEFT;
         }
 
-        if (Input.GetKeyDown(spaceButton) /*&& canJump*/)
+        if (Input.GetKeyDown(spaceButton) && canJump)
         {
-            //SpikeyDirection = Direction.SPACE;
-            rigidBody.velocity = Vector2.up * thrust;
+            jump();
         }
 
-        if (Input.GetKey(attackButton))
+        if (Input.GetKeyDown(attackButton))
         {
-            SpikeyDirection = Direction.ATTACK;
+            attack();
         }
 
     }
 
     private void jump()
     {
-        //float delta = Time.fixedDeltaTime * 1000;
-        //rigidBody.AddForce(new Vector2(currentSpeedH, currentSpeedV) * thrust * delta, ForceMode2D.Impulse);
-        //canJump = false;
-
+        // rigidBody.transform.position.y = new Vector3(transform.position.x, transform.position.y + 5, 0);
         float delta = Time.fixedDeltaTime * 1000;
-        float jump = 10f;
-        rigidBody.velocity = Vector2.up * jump;
+        rigidBody.AddForce(new Vector2(currentSpeedH, currentSpeedV) * thrust * delta, ForceMode2D.Impulse);
+        canJump = false;
+
     }
     private void attack()
     {
@@ -117,13 +114,6 @@ public class SpikeyController : MonoBehaviour
             case Direction.LEFT:
                 currentSpeedH = -1 * baseSpeed;
                 break;
-            case Direction.SPACE:
-                jump();
-                break;
-            case Direction.ATTACK:
-                attack();
-                break;
-
         }
         rigidBody.velocity = new Vector2(currentSpeedH, currentSpeedV) * delta;
     }
