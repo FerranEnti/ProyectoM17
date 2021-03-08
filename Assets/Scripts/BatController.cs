@@ -12,11 +12,14 @@ public class BatController : MonoBehaviour
 
     private Rigidbody2D rigidBody;
 
+    private float positionX;
+    private float positionY;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        float rand = Random.Range(0.0f, 0.8f);
+        /*float rand = Random.Range(0.0f, 0.8f);
         if (rand < 0.2)
         {
             currentSpeedH = -baseSpeed;
@@ -32,13 +35,19 @@ public class BatController : MonoBehaviour
         else if (rand == 0.6 || rand < 0.8)
         {
             currentSpeedV = -baseSpeed;
-        }
+        }*/
+
+        currentSpeedV = -baseSpeed;
+
+        positionX = transform.position.x;
+        positionY = transform.position.y;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (transform.position.y > 30)
         {
             currentSpeedV *= -1;
@@ -46,8 +55,13 @@ public class BatController : MonoBehaviour
 
 
 
+        /*if (positionX > positionX + 100 || positionX < positionX - 100)
+        {
+            currentSpeedH *= -1;
+        }*/
 
-        
+
+
     }
     private void FixedUpdate()
     {

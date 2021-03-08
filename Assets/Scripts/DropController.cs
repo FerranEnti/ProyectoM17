@@ -23,6 +23,7 @@ public class DropController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Tilemap")
         {
+            Destroy(gameObject);
            //animacion
            //sonido
         }
