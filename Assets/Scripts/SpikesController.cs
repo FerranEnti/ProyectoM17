@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpikesController : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
-    public float thurst = 10.0f;
+    public float thurst = 30.0f;
 
     // Start is called before the first frame update
     void Start()

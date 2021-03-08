@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class SpikeyController : MonoBehaviour
 {
-    public enum Direction { NONE, UP, DOWN, RIGHT, LEFT, SPACE, ATTACK };
+    public enum Direction { NONE, UP, DOWN, RIGHT, LEFT};
     public Direction SpikeyDirection = Direction.NONE;
 
-    private float baseSpeed = 0.5f;
+    private float baseSpeed = 90.0f;
+    private float maxSpeed = 130.0f;
+
     private float currentSpeedV = 0.0f;
     private float currentSpeedH = 0.0f;
-    private float thrust = 4.5f;
+    private float thrust = 13.0f;
 
     private bool canWalk = true;
     public bool canJump = false;
     private bool canClimb = false;
-
 
     KeyCode upButton = KeyCode.W;
     KeyCode downButton = KeyCode.S;
@@ -33,38 +34,62 @@ public class SpikeyController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        //audio = GetComponent<AudioSource>();
-
-        
-        
+        //audio = GetComponent<AudioSource>();        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-
-
-
+        
         SpikeyDirection = Direction.NONE;
 
-        if (Input.GetKey(upButton) && canClimb)
-        {
+        if (Input.GetKeyDown(upButton) && Climb())
+        {   
             SpikeyDirection = Direction.UP;
+           
         }
-        else if (Input.GetKey(downButton) && canClimb)
+        else if (Input.GetKeyDown(downButton) && Climb())
         {
+
             SpikeyDirection = Direction.DOWN;
+        
         }
 
-        if (Input.GetKey(rightButton) && Walk())
+        if (Input.GetKey(rightButton))
         {
-            SpikeyDirection = Direction.RIGHT;
+            //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            currentSpeedH = rigidBody.velocity.x;
+            if (currentSpeedH > maxSpeed)
+            {
+                canWalk = false;
+            }
+            else
+            {
+                canWalk = true;
+            }
+
+            if (canWalk)
+            {
+                SpikeyDirection = Direction.RIGHT;
+            }
         }
-        else if (Input.GetKey(leftButton) && Walk())
+        else if (Input.GetKey(leftButton))
         {
-            SpikeyDirection = Direction.LEFT;
+            //transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            currentSpeedH = rigidBody.velocity.x;
+            if (currentSpeedH < maxSpeed * -1)
+            {
+                canWalk = false;
+            }
+            else
+            {
+                canWalk = true;
+            }
+
+            if (canWalk)
+            {
+                SpikeyDirection = Direction.LEFT;
+            }
         }
 
         if (Input.GetKeyDown(spaceButton) && canJump)
@@ -93,6 +118,7 @@ public class SpikeyController : MonoBehaviour
         {
             canWalk = true;
         }
+        return canWalk;
     }
 
     private bool Climb()
@@ -101,12 +127,13 @@ public class SpikeyController : MonoBehaviour
 
         if (currentSpeedV > baseSpeed)
         {
-            canWalk = false;
+            canClimb = false;
         }
         else
         {
-            canWalk = true;
+            canClimb = true;
         }
+        return canClimb;
     }
 
     private void jump()
@@ -119,11 +146,11 @@ public class SpikeyController : MonoBehaviour
     }
     private void attack()
     {
-        GameObject Pua1 = Instantiate(pua, transform.position + transform.up, Quaternion.Euler(0, 0, 0));
-        GameObject Pua2 = Instantiate(pua, transform.position + transform.up, Quaternion.Euler(0, 0, 45));
-        GameObject Pua3 = Instantiate(pua, transform.position + transform.up, Quaternion.Euler(0, 0, 325));
-        GameObject Pua4 = Instantiate(pua, transform.position + transform.up, Quaternion.Euler(0, 0, 280));
-        GameObject Pua5 = Instantiate(pua, transform.position + transform.up, Quaternion.Euler(0, 0, 90));
+        GameObject Pua1 = Instantiate(pua, transform.position + transform.up * 2, Quaternion.Euler(0, 0, 0));
+        GameObject Pua2 = Instantiate(pua, transform.position + transform.up * 2, Quaternion.Euler(0, 0, 45));
+        GameObject Pua3 = Instantiate(pua, transform.position + transform.up * 2, Quaternion.Euler(0, 0, 325));
+        GameObject Pua4 = Instantiate(pua, transform.position + transform.up * 2, Quaternion.Euler(0, 0, 280));
+        GameObject Pua5 = Instantiate(pua, transform.position + transform.up * 2, Quaternion.Euler(0, 0, 90));
         Destroy(Pua1, 3);
         Destroy(Pua2, 3);
         Destroy(Pua3, 3);
@@ -142,16 +169,16 @@ public class SpikeyController : MonoBehaviour
         {
             default: break;
             case Direction.UP:
-                rigidBody.AddForce(transform.up * baseSpeed * delta, ForceMode2D.Impulse);
+                rigidBody.AddForce(transform.up * baseSpeed * delta);
                 break;
             case Direction.DOWN:
-                rigidBody.AddForce((transform.up * baseSpeed * delta) * -1, ForceMode2D.Impulse);
+                rigidBody.AddForce((transform.up * baseSpeed * delta) * -1);
                 break;
             case Direction.RIGHT:
-                rigidBody.AddForce(transform.right * baseSpeed * delta, ForceMode2D.Impulse);
+                rigidBody.AddForce(transform.right * baseSpeed * delta);
                 break;
             case Direction.LEFT:
-                rigidBody.AddForce((transform.right * baseSpeed * delta) * -1, ForceMode2D.Impulse);
+                rigidBody.AddForce((transform.right * baseSpeed * delta) * -1);
                 break;
         }
     }
