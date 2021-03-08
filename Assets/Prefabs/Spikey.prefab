@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3751320106580556458}
   - component: {fileID: 3751320106580556459}
   - component: {fileID: 3751320106580556460}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spikey
   m_TagString: Spikey
   m_Icon: {fileID: 0}
@@ -144,3 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaf572ab9c42654db693bd90eaeec01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpikeyDirection: 0
+  canJump: 0
+  pua: {fileID: 0}

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5958295845985831353}
   - component: {fileID: 4183313926364293846}
   - component: {fileID: 5113048842336198066}
-  m_Layer: 0
+  - component: {fileID: 531242371660155248}
+  m_Layer: 9
   m_Name: Puas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,3 +132,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32, y: 32}
   m_EdgeRadius: 0
+--- !u!114 &531242371660155248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3648354282655943309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9f8a00b240038489f2b46b885375af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
